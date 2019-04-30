@@ -16,16 +16,19 @@
   "postcss": {
     "plugins": {
       "autoprefixer": {},
-      "postcss-import": {},
       "cssnano": {}
     }
   },
+  "browserslist": ">0%",
   "dependencies": {
     "static-server": "2.2.1"
   },
   "devDependencies": {
+    "autoprefixer": "9.5.1",
+    "cssnano": "4.1.10",
     "parcel": "1.12.3",
-    "postcss": "^7.0.14",
+    "postcss": "7.0.14",
+    "sugarss": "^2.0.0",
     "typescript": "3.4.5"
   }
 }

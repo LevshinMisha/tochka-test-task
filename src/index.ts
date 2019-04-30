@@ -1,7 +1,3 @@
-import Button from "./components/common/button";
+import App from "./app";
 
-const app = document.getElementById("app");
-
-const button = Button({ text: "kek", onClick: () => console.log('click')})
-
-app.appendChild(button);
+document.getElementById("app").appendChild(App());
