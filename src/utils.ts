@@ -1,6 +1,10 @@
+import { Component } from "./components";
+
 interface CreateOptionals {
   classList?: any[],
-  text?: string
+  text?: string,
+  class?: string,
+  childrens?: HTMLElement[]
 }
 
 export const DOM = {
@@ -9,6 +13,8 @@ export const DOM = {
     if (optionals) {
       if (optionals.classList) DOM.setClassList(element, optionals.classList);
       if (optionals.text) DOM.setText(element, optionals.text);
+      if (optionals.class) DOM.setClassList(element, [optionals.class]);
+      if (optionals.childrens) DOM.setChildrens(element, optionals.childrens);
     }
     return element;
   },
@@ -22,6 +28,14 @@ export const DOM = {
   },
   setText: (element: HTMLElement, text: string) => {
     element.innerText = text;
+    return element;
+  },
+  setHtml: (element: HTMLElement, html: string) => {
+    element.innerHTML = html;
+    return element;
+  },
+  setChildrens: (element: HTMLElement, childrens: HTMLElement[]) => {
+    childrens.forEach(child => element.appendChild(child));
     return element;
   }
 }

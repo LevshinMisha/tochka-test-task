@@ -1,21 +1,22 @@
-import "./index.sss"
 import { DOM } from "../../../utils";
-import { ClassComponent, ClassPureComponent } from "../..";
+import { Component, AnyComponent } from "../..";
+
+import "./index.sss"
 
 interface TableProps {
-  childrens?: ClassPureComponent[];
+  tableContent?: AnyComponent[];
   class?: string;
 }
 
-class Table extends ClassComponent {
+class Table extends Component<TableProps, {}> {
   constructor(props: TableProps) {
-    super(DOM.create('div'), props);
+    super(props);
   }
   
   render() {
     DOM.setClassList(this.rootElement, ['table', this.props.class]);
-    if (this.props.childrens)
-      this.props.childrens.forEach((child: ClassPureComponent) => {
+    if (this.props.tableContent)
+      this.props.tableContent.forEach((child: AnyComponent) => {
         this.rootElement.appendChild(child.render())
       });
     else {

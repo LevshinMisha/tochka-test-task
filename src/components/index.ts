@@ -1,28 +1,34 @@
-export interface PureComponent {
-  render(props: any): HTMLElement
-}
+import { DOM } from "../utils";
 
-export interface Component extends PureComponent {
-  reRender(props: any): HTMLElement,
-}
-
-export abstract class ClassPureComponent {
-  props: any
-  constructor(props: any) {
+export abstract class Component<Props, State> {
+  rootElement: HTMLElement
+  props: Props
+  state: State
+  constructor(props: Props, state?: State, tagName: string = 'div') {
     this.props = props;
+    if (state) this.state = state;
+    this.rootElement = DOM.create(tagName);
+    this.componentDidMount();
+  }
+  componentDidMount() {
+
   }
   abstract render(): HTMLElement
-}
-
-export abstract class ClassComponent extends ClassPureComponent{
-  rootElement: HTMLElement
-  constructor(rootElement: HTMLElement, props: any) {
-    super(props);
-    this.rootElement = rootElement;
+  setState(newState: State): void {
+    this.state = {
+      ...this.state,
+      ...newState
+    }
+    this.reRender();
   }
   reRender(): HTMLElement {
-    this.rootElement.innerHTML = '';
-    this.render();
-    return this.rootElement;
+    DOM.setClassList(this.rootElement, []);
+    DOM.setHtml(this.rootElement, '');
+    return this.render();
   }
+  remove(): void {
+    this.rootElement.remove();
+  } 
 }
+
+export interface AnyComponent extends Component<any, any> {}

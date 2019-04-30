@@ -1,6 +1,7 @@
-import "./index.sss"
 import { DOM } from "../../../utils";
-import { ClassPureComponent } from "../..";
+import { Component } from "../..";
+
+import "./index.sss"
 
 export interface ButtonProps {
   text: string;
@@ -8,10 +9,7 @@ export interface ButtonProps {
   onClick?: Function;
 }
 
-class ButtonClass extends ClassPureComponent {
-  constructor (props: ButtonProps) {
-    super(props);
-  }
+class Button extends Component<ButtonProps, {}> {
   render() {
     const button = DOM.create('button');
     DOM.setClassList(button, ['button', this.props.class]);
@@ -21,4 +19,4 @@ class ButtonClass extends ClassPureComponent {
   }
 }
 
-export default ButtonClass;
+export default Button;
