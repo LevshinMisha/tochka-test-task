@@ -1,0 +1,31 @@
+{
+  "name": "tochka-test-task",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel ./src/index.html -d build --open",
+    "prod": "static-server -o build",
+    "build": "parcel build ./src/index.html -d build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LevshinMisha/tochka-test-task.git"
+  },
+  "author": "LevshinMisha",
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {},
+      "postcss-import": {},
+      "cssnano": {}
+    }
+  },
+  "dependencies": {
+    "static-server": "2.2.1"
+  },
+  "devDependencies": {
+    "parcel": "1.12.3",
+    "postcss": "^7.0.14",
+    "typescript": "3.4.5"
+  }
+}
