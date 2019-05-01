@@ -18,6 +18,11 @@ export interface EVENT {
   fields: EVENT_FIELD[]
 }
 
+export interface STORED_EVENT {
+  name: string,
+  fields: string[]
+}
+
 export interface IEVENTS {
   [s: string]: EVENT
 }

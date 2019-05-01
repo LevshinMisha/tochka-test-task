@@ -7,7 +7,7 @@ import AddEventForm from "./add-event-form";
 import GreenButton from "../../common/button/green";
 
 interface Props {
-
+  addEvent: Function,
   closeModal?: Function;
 }
 
@@ -22,6 +22,7 @@ class AddEvent extends Component<Props, State> {
   addEventButton: HTMLElement
 
   constructor(props: Props) {
+    console.log(props)
     super(props, { event: EVENTS.FINANCE })
   }
   
@@ -46,6 +47,10 @@ class AddEvent extends Component<Props, State> {
     console.log(values, this.eventForm.inputs)
     if (values.every(value => typeof value !== 'string' || value.length)) {
       this.props.closeModal();
+      this.props.addEvent({
+        name: this.state.event.name,
+        fields: values
+      });
     } else {
       alert('Не все поля заполнены')
     }
