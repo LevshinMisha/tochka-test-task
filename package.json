@@ -15,8 +15,7 @@
   "author": "LevshinMisha",
   "postcss": {
     "plugins": {
-      "autoprefixer": {},
-      "cssnano": {}
+      "autoprefixer": {}
     }
   },
   "browserslist": ">0%",

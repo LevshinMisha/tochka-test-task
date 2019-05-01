@@ -26,11 +26,16 @@ class Modal extends Component<Props, State> {
     this.setState({ open: false });
   }
   render() {
-    DOM.setClassList(this.rootElement, ['modal', this.state.open && 'modal--open']);
     this.props.component.props = { ...this.props.component.props, closeModal: this.close };
-    const contentWrap = DOM.create('div', { class: 'modal__content-wrap', childrens: [this.props.component.rootElement] });
-    contentWrap.onclick = event => event.stopPropagation();
-    return DOM.setChildrens(this.rootElement, [contentWrap]);
+    return DOM.update(this.rootElement, {
+      classList: ['modal', this.state.open && 'modal--open'],
+      childrens: [
+        DOM.div('modal__content-wrap', {
+          onClick: (event: Event) => event.stopPropagation(),
+          childrens: [this.props.component.render()],
+        })
+      ],
+    });
   }
   reRender() {
     return DOM.setClassList(this.rootElement, ['modal', this.state.open && 'modal--open']);;

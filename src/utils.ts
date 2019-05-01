@@ -1,20 +1,24 @@
-import { Component } from "./components";
+import { Component, AnyComponent } from "./components";
 
-interface CreateOptionals {
+interface UpdateObj {
   classList?: any[],
   text?: string,
   class?: string,
-  childrens?: HTMLElement[]
+  childrens?: HTMLElement[],
+  onClick?: Function
 }
 
 export const DOM = {
-  create: (tagName: string, optionals?: CreateOptionals) => {
-    const element = document.createElement(tagName);
-    if (optionals) {
-      if (optionals.classList) DOM.setClassList(element, optionals.classList);
-      if (optionals.text) DOM.setText(element, optionals.text);
-      if (optionals.class) DOM.setClassList(element, [optionals.class]);
-      if (optionals.childrens) DOM.setChildrens(element, optionals.childrens);
+  create: (tagName: string, update?: UpdateObj) => {
+    return DOM.update(document.createElement(tagName), update);
+  },
+  update: (element: HTMLElement, update?: UpdateObj) => {
+    if (update) {
+      if (update.classList) DOM.setClassList(element, update.classList);
+      if (update.text) DOM.setText(element, update.text);
+      if (update.class) DOM.setClassList(element, [update.class]);
+      if (update.childrens) DOM.setChildrens(element, update.childrens);
+      if (update.onClick) DOM.setOnClick(element, update.onClick)
     }
     return element;
   },
@@ -35,7 +39,44 @@ export const DOM = {
     return element;
   },
   setChildrens: (element: HTMLElement, childrens: HTMLElement[]) => {
-    childrens.forEach(child => element.appendChild(child));
+    childrens.forEach(child => {
+      if (child) element.appendChild(child)
+    });
     return element;
+  },
+  setOnClick: (element: HTMLElement, onClick: Function) => {
+    element.onclick = event => onClick(event);
+    return element;
+  },
+  setAttr: (element: HTMLElement, attrName: string, value: string) => {
+    element.setAttribute(attrName, value);
+    return element;
+  },
+  addAttr: (element: HTMLElement, attrName: string, condition: boolean = true) => {
+    if (condition)
+      element.setAttribute(attrName, '');
+    return element;
+  },
+  getAttr: (element: HTMLElement, attrName: string) => {
+    return element.getAttribute(attrName);
+  },
+  hasAttr: (element: HTMLElement, attrName: string) => {
+    return element.hasAttribute(attrName);
+  },
+  getTagName: (element: HTMLElement) => {
+    return element.tagName;
+  },
+  getInputValue: (element: HTMLInputElement) => {
+    return element.value;
+  },
+  setInputValue: (element: HTMLInputElement, value: string) => {
+    element.value = value;
+    return element;
+  },
+  div: (className: string, optionals?: UpdateObj) => {
+    return DOM.create('div', { class: className, ...optionals });
+  },
+  span: (className: string, text: string, optionals?: UpdateObj) => {
+    return DOM.create('span', { class: className, text, ...optionals });
   }
 }

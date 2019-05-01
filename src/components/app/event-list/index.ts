@@ -25,7 +25,6 @@ class EventList extends Component<Props, State> {
   }
 
   addEvent(event: STORED_EVENT) {
-    console.log(this)
     this.setState({
       events: [...this.state.events, event],
       sortDate: this.state.sortDate,
@@ -35,14 +34,16 @@ class EventList extends Component<Props, State> {
 
   render() {
     if (this.state.events.length)
-      this.state.events.forEach(event => {
-        this.rootElement.appendChild(new EventListItem({ event }).render());
-      });
-    else {
-      this.rootElement.appendChild(DOM.create('span', { text: 'Таблица сейчас пуста, нажмите кнопку ниже, чтобы добавить в нее что-нибудь.' }));
-    }
-      
-    return DOM.setClassList(this.rootElement, ['event-list', !this.state.events.length && 'event-list--empty']);
+      return DOM.update(this.rootElement, {
+        class: 'event-list',
+        childrens: this.state.events.map(event => new EventListItem({ event }).render())
+      })
+    return DOM.update(this.rootElement, {
+      classList: ['event-list', !this.state.events.length && 'event-list--empty'],
+      childrens: [
+        DOM.span('event-list__empty-message', 'Таблица сейчас пуста, нажмите кнопку ниже, чтобы добавить в нее что-нибудь.')
+      ]
+    });
   }
 }
 

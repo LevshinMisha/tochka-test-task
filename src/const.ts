@@ -4,7 +4,7 @@ export enum EVENT_FIELD_TYPE_ENUM {
   TEXT,
   TEXTAREA,
   DATE,
-  PRIHOD
+  BALANCE
 }
 
 export interface EVENT_FIELD {
@@ -52,7 +52,7 @@ export const EVENTS: IEVENTS = {
         showInList: false
       },
       {
-        type: EVENT_FIELD_TYPE_ENUM.PRIHOD,
+        type: EVENT_FIELD_TYPE_ENUM.BALANCE,
         title: 'Приход или расход',
         showInList: true
       },
@@ -64,7 +64,7 @@ export const EVENTS: IEVENTS = {
     ]
   },
   NEWS: {
-    name: 'Новости',
+    name: 'Новость',
     fields: [
       {
         type: EVENT_FIELD_TYPE_ENUM.TEXT,
@@ -101,3 +101,8 @@ export const CURRENCY_OPTIONS: string[] = [
   "Евро",
   "Бонусы"
 ]
+
+export const BALANCE_TEXTS = {
+  PLUS: '+приход',
+  MINUS: '-расход'
+}

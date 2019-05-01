@@ -1,4 +1,4 @@
-.add-event-modal
+.add-event
   width: 600px
   display: flex
   flex-direction: column
@@ -7,10 +7,10 @@
   min-height: 60vh
   margin: auto
 
-.add-event-modal__content-wrap
+.add-event__content-wrap
   width: 100%
   
-.add-event-modal__event-type
+.add-event__event-tab
   height: 40px
   width: 200px
   box-sizing: border-box
@@ -21,18 +21,18 @@
   cursor: pointer
   padding: 10px
 
-.add-event-modal__event-types
+.add-event__event-tabs
   border-bottom: 1px solid black
 
-.add-event-modal__event-type--active
+.add-event__event-tab--active
   border-color: red
   color: red
   border-bottom: 3px solid red
 
-.add-event-modal__event-type:hover
+.add-event__event-tab:hover
   border-color: red
   color: red
 
 @media(min-width: 1200px)
-  .add-event-modal
+  .add-event
     width: 800px

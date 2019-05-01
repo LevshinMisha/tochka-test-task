@@ -11,11 +11,11 @@ export interface ButtonProps {
 
 class Button extends Component<ButtonProps, {}> {
   render() {
-    const button = DOM.create('button');
-    DOM.setClassList(button, ['button', this.props.class]);
-    DOM.setText(button, this.props.text);
-    if (this.props.onClick) button.onclick = () => this.props.onClick();
-    return button;
+    return DOM.create('button', {
+      classList: ['button', this.props.class],
+      text: this.props.text,
+      onClick: this.props.onClick && (() => this.props.onClick())
+    });
   }
 }
 

@@ -1,14 +1,14 @@
-.checkbox-plus-minus
+.checkbox-green-red
   cursor: pointer
   user-select: none
 
-.checkbox-plus-minus__checkbox,
-.checkbox-plus-minus__checkbox:not(:checked) ~ .checkbox-plus-minus__minus,
-.checkbox-plus-minus__checkbox:checked ~ .checkbox-plus-minus__plus
+.checkbox-green-red__checkbox,
+.checkbox-green-red__checkbox:checked ~ .checkbox-green-red__red,
+.checkbox-green-red__checkbox:not(:checked) ~ .checkbox-green-red__green
   display: none
 
-.checkbox-plus-minus__minus
+.checkbox-green-red__red
   color: red
 
-.checkbox-plus-minus__plus
+.checkbox-green-red__green
   color: green
