@@ -4,21 +4,16 @@ import { DOM } from "../../../utils";
 import "./index.sss";
 
 
-export interface Props {
+interface Props {
   component: AnyComponent,
 }
 
-export interface State {
+interface State {
   open: boolean
 }
 
 class Modal extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props)
-    this.state = {
-      open: false
-    };
-  }
+  state = { open: false }
   componentDidMount() {
     this.open = this.open.bind(this);
     this.close = this.close.bind(this);
@@ -32,9 +27,13 @@ class Modal extends Component<Props, State> {
   }
   render() {
     DOM.setClassList(this.rootElement, ['modal', this.state.open && 'modal--open']);
-    const contentWrap = DOM.create('div', { class: 'modal__content-wrap', childrens: [this.props.component.render()] });
-    contentWrap.onclick = event => event.preventDefault();
+    this.props.component.props = { ...this.props.component.props, closeModal: this.close };
+    const contentWrap = DOM.create('div', { class: 'modal__content-wrap', childrens: [this.props.component.rootElement] });
+    contentWrap.onclick = event => event.stopPropagation();
     return DOM.setChildrens(this.rootElement, [contentWrap]);
+  }
+  reRender() {
+    return DOM.setClassList(this.rootElement, ['modal', this.state.open && 'modal--open']);;
   }
 }
 

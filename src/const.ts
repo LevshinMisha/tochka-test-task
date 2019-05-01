@@ -1,54 +1,78 @@
-export enum EVENT_FIELD_ENUM {
+export enum EVENT_FIELD_TYPE_ENUM {
   NUMBER,
   CURRENCY,
   TEXT,
   TEXTAREA,
-  MONEY1, 
   DATE,
+  PRIHOD
 }
 
-interface IEvents {
-  [s: string]: {
-    name: string,
-    fields: {
-      type: EVENT_FIELD_ENUM,
-      title: string,
-      showInList: boolean
-    }[]
-  }
+export interface EVENT_FIELD {
+  type: EVENT_FIELD_TYPE_ENUM,
+  title: string
+  showInList: boolean
 }
 
-export const EVENTS: IEvents = {
+export interface EVENT {
+  name: string,
+  fields: EVENT_FIELD[]
+}
+
+export interface IEVENTS {
+  [s: string]: EVENT
+}
+
+export const EVENTS: IEVENTS = {
   FINANCE: {
     name: 'Финансовая транзакция',
     fields: [
       {
-        type: EVENT_FIELD_ENUM.NUMBER,
+        type: EVENT_FIELD_TYPE_ENUM.NUMBER,
         title: 'Сумма транзакции',
         showInList: true
       },
       {
-        type: EVENT_FIELD_ENUM.CURRENCY,
+        type: EVENT_FIELD_TYPE_ENUM.CURRENCY,
         title: 'Валюта',
         showInList: true
       },
       {
-        type: EVENT_FIELD_ENUM.TEXT,
+        type: EVENT_FIELD_TYPE_ENUM.TEXT,
         title: 'От кого транзакция',
         showInList: true
       },
       {
-        type: EVENT_FIELD_ENUM.TEXTAREA,
+        type: EVENT_FIELD_TYPE_ENUM.TEXTAREA,
         title: 'Описание',
         showInList: false
       },
       {
-        type: EVENT_FIELD_ENUM.CURRENCY,
+        type: EVENT_FIELD_TYPE_ENUM.PRIHOD,
         title: 'Приход или расход',
         showInList: true
       },
       {
-        type: EVENT_FIELD_ENUM.DATE,
+        type: EVENT_FIELD_TYPE_ENUM.DATE,
+        title: 'Дата',
+        showInList: true
+      },
+    ]
+  },
+  NEWS: {
+    name: 'Новости',
+    fields: [
+      {
+        type: EVENT_FIELD_TYPE_ENUM.TEXT,
+        title: 'Заголовок',
+        showInList: true
+      },
+      {
+        type: EVENT_FIELD_TYPE_ENUM.TEXTAREA,
+        title: 'Содержание',
+        showInList: false
+      },
+      {
+        type: EVENT_FIELD_TYPE_ENUM.DATE,
         title: 'Дата',
         showInList: true
       },
@@ -59,3 +83,16 @@ export const EVENTS: IEvents = {
 export enum MODAL_TYPE {
   ADD_EVENT
 }
+
+export enum SORT_TYPE {
+  ASK,
+  DESC,
+  NONE
+}
+
+export const CURRENCY_OPTIONS: string[] = [
+  "Рубли",
+  "Доллары",
+  "Евро",
+  "Бонусы"
+]

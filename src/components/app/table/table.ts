@@ -2,22 +2,31 @@ import { DOM } from "../../../utils";
 import { Component, AnyComponent } from "../..";
 
 import "./index.sss"
+import { EVENT, SORT_TYPE } from "../../../const";
 
-interface TableProps {
-  tableContent?: AnyComponent[];
-  class?: string;
+interface TableProps {}
+
+interface State {
+  content: EVENT[];
+  sortDate: SORT_TYPE,
+  sortType: SORT_TYPE
 }
 
-class Table extends Component<TableProps, {}> {
+class Table extends Component<TableProps, State> {
   constructor(props: TableProps) {
     super(props);
+    this.state = {
+      content: [],
+      sortDate: SORT_TYPE.NONE,
+      sortType: SORT_TYPE.NONE
+    }
   }
-  
+
   render() {
-    DOM.setClassList(this.rootElement, ['table', this.props.class]);
-    if (this.props.tableContent)
-      this.props.tableContent.forEach((child: AnyComponent) => {
-        this.rootElement.appendChild(child.render())
+    DOM.setClassList(this.rootElement, ['table']);
+    if (this.state.content.length)
+      this.state.content.forEach((contentProp) => {
+
       });
     else {
       this.rootElement.appendChild(DOM.create('span', { text: 'Таблица сейчас пуста, нажмите кнопку ниже, чтобы добавить в нее что-нибудь.' }));

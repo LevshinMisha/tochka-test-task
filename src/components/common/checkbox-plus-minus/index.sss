@@ -1,0 +1,14 @@
+.checkbox-plus-minus
+  cursor: pointer
+  user-select: none
+
+.checkbox-plus-minus__checkbox,
+.checkbox-plus-minus__checkbox:not(:checked) ~ .checkbox-plus-minus__minus,
+.checkbox-plus-minus__checkbox:checked ~ .checkbox-plus-minus__plus
+  display: none
+
+.checkbox-plus-minus__minus
+  color: red
+
+.checkbox-plus-minus__plus
+  color: green

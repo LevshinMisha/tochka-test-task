@@ -1,7 +1,37 @@
 .add-event-modal
-  background: white
   width: 600px
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  align-items: center
+  min-height: 60vh
   margin: auto
+
+.add-event-modal__content-wrap
+  width: 100%
+  
+.add-event-modal__event-type
+  height: 40px
+  width: 200px
+  box-sizing: border-box
+  text-align: center
+  border-radius: 15px 15px 0 0
+  border: 1px solid black
+  display: inline-block
+  cursor: pointer
+  padding: 10px
+
+.add-event-modal__event-types
+  border-bottom: 1px solid black
+
+.add-event-modal__event-type--active
+  border-color: red
+  color: red
+  border-bottom: 3px solid red
+
+.add-event-modal__event-type:hover
+  border-color: red
+  color: red
 
 @media(min-width: 1200px)
   .add-event-modal

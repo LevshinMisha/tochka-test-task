@@ -19,8 +19,7 @@ const App = () => {
 
   app.appendChild(table.render());
   app.appendChild(button.render());
-  app.appendChild(addModal.render())
-
+  app.appendChild(addModal.render());
 
   return app;
 }
