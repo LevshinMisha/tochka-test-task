@@ -1,18 +1,21 @@
 import { DOM } from "../../../utils";
 import { Component } from "../..";
 
-import { EVENT, EVENT_FIELD, EVENT_FIELD_TYPE_ENUM, CURRENCY_OPTIONS, BALANCE_TEXTS } from "../../../const";
-import CheckboxGreenRed from "../../common/checkbox-plus-minus";
+import { EVENT, EVENT_FIELD, EVENT_FIELD_TYPE_ENUM, CURRENCY_OPTIONS, BALANCE_TEXTS, STORED_EVENT } from "../../../const";
+import CheckboxGreenRed from "../../common/checkbox-green-red";
+
+import './index.sss';
 
 interface Props {
-  event: EVENT
+  event: EVENT,
+  showEvent?: STORED_EVENT
 }
 
-abstract class EventForm extends Component<Props, {}> {
+class EventForm extends Component<Props, {}> {
   inputs: HTMLInputElement[] = []
 
   renderInput(field: EVENT_FIELD, inputs: HTMLElement[], value?: string) {
-    const input = DOM.create(!value ? 'input' : 'div', { class: 'input' });
+    const input = DOM.create(!value ? 'input' : 'div', { class: 'event-form__input' });
     if (value)
       DOM.setText(input, value);
     switch (field.type) {
@@ -27,10 +30,13 @@ abstract class EventForm extends Component<Props, {}> {
         inputs.push(checkboxGreenRed.getCheckbox());
         return rendered;
       case EVENT_FIELD_TYPE_ENUM.TEXTAREA:
-        const textarea = DOM.create('textarea');
-        if (value) DOM.setAttr(textarea, 'value', value);
-        inputs.push(textarea);
-        return textarea;
+        if (!value) {
+          const textarea = DOM.create('textarea', { classList: ['event-form__input', 'event-form__input--textarea']});
+          if (value) DOM.setAttr(textarea, 'value', value);
+          inputs.push(textarea);
+          return textarea;
+        }
+        return DOM.span('', value, { classList: ['event-form__input', 'event-form__input--textarea']})
       case EVENT_FIELD_TYPE_ENUM.NUMBER:
         if (!value) {
           input.setAttribute("type", "number");
@@ -70,6 +76,27 @@ abstract class EventForm extends Component<Props, {}> {
           DOM.setInputValue(i, '')
       if (DOM.getTagName(i) === 'SELECT')
         DOM.setInputValue(i, i.children.item(0).innerHTML);
+    })
+  }
+
+  render() {
+    this.inputs = [];
+
+    return DOM.update(this.rootElement, {
+      class: 'event-form',
+      childrens: [
+        DOM.span('event-form__title', this.props.event.name),
+        DOM.div('event-form__fields', {
+          childrens: this.props.event.fields.map((field, i) => {
+            return DOM.div('event-form__field', {
+              childrens: [
+                DOM.span('event-form__field-title', field.title),
+                this.renderInput(field, this.inputs, this.props.showEvent && this.props.showEvent.fields[i])
+              ]
+            })
+          })
+        })
+      ]
     })
   }
 }

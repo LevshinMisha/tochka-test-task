@@ -1,10 +1,10 @@
-import { DOM } from "../../../utils";
-import { Component } from "../..";
+import { DOM } from "../../../../utils";
+import { Component } from "../../..";
 
 import './index.sss';
-import { EVENTS, EVENT } from "../../../const";
-import AddEventForm from "../event-form/add";
-import GreenButton from "../../common/button/green";
+import { EVENTS, EVENT } from "../../../../const";
+import EventForm from "../../event-form";
+import GreenButton from "../../../common/button/green";
 
 interface Props {
   addEvent: Function,
@@ -17,14 +17,14 @@ interface State {
 
 class AddEvent extends Component<Props, State> {
   eventTabs: HTMLElement
-  eventForm: AddEventForm
+  eventForm: EventForm
 
   constructor(props: Props) {
     super(props, { event: EVENTS.FINANCE })
   }
 
   buttonOnClick() {
-    const values = this.eventForm.inputs.map(i => DOM.getAttr(i ,'type') !== 'checkbox' ? i.value : (<HTMLInputElement>i).checked));
+    const values = this.eventForm.inputs.map(i => DOM.getAttr(i ,'type') !== 'checkbox' ? i.value : (<HTMLInputElement>i).checked);
     if (values.every(value => typeof value !== 'string' || !!value.length)) {
       this.props.closeModal();
       this.props.addEvent({
@@ -45,7 +45,7 @@ class AddEvent extends Component<Props, State> {
         })
       })
     })
-    this.eventForm = new AddEventForm({ event: this.state.event });
+    this.eventForm = new EventForm({ event: this.state.event });
     return DOM.update(this.rootElement, {
       class: 'add-event',
       childrens: [

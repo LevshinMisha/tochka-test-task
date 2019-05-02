@@ -1,11 +1,14 @@
 import { DOM } from "../../../utils";
-import { Component } from "../..";
+import { Component, AnyComponent } from "../..";
 
 import "./index.sss"
-import { SORT_TYPE, STORED_EVENT } from "../../../const";
+import { SORT_TYPE, STORED_EVENT, EVENT } from "../../../const";
 import EventListItem from "./event-list-item";
 
-interface Props {}
+interface Props {
+  openModal: Function,
+  eventForm: AnyComponent
+}
 
 interface State {
   events: STORED_EVENT[];
@@ -22,6 +25,7 @@ class EventList extends Component<Props, State> {
       sortType: SORT_TYPE.NONE
     }
     this.addEvent = this.addEvent.bind(this);
+    this.showEvent = this.showEvent.bind(this);
   }
 
   addEvent(event: STORED_EVENT) {
@@ -32,11 +36,17 @@ class EventList extends Component<Props, State> {
     })
   }
 
+  showEvent(event: EVENT, showEvent: STORED_EVENT) {
+    this.props.eventForm.props = { event, showEvent }
+    this.props.eventForm.reRender();
+    this.props.openModal();
+  }
+
   render() {
     if (this.state.events.length)
       return DOM.update(this.rootElement, {
         class: 'event-list',
-        childrens: this.state.events.map(event => new EventListItem({ event }).render())
+        childrens: this.state.events.map(event => new EventListItem({ event, showEvent: this.showEvent }).render())
       })
     return DOM.update(this.rootElement, {
       classList: ['event-list', !this.state.events.length && 'event-list--empty'],

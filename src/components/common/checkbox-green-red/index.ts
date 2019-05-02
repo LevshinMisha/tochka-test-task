@@ -15,10 +15,11 @@ class CheckboxGreenRed extends Component<Props, {}> {
   render() {
     this.input = DOM.create('input', { class: 'checkbox-green-red__checkbox'});
     DOM.setAttr(this.input, 'type', 'checkbox');
-    DOM.addAttr(this.input, 'checked', this.props.checked);
+    if (this.props.checked)
+      (<HTMLInputElement>this.input).checked = true;
     DOM.addAttr(this.input, 'disabled', this.props.disabled)
     return DOM.create('label', { 
-      class: 'checkbox-green-red',
+      classList: ['checkbox-green-red', this.props.disabled && 'checkbox-green-red--disabled'],
       childrens: [
         this.input,
         DOM.span('checkbox-green-red__green', this.props.greenText),

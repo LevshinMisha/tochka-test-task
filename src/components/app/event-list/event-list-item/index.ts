@@ -5,7 +5,8 @@ import "./index.sss"
 import { STORED_EVENT, EVENTS, EVENT, EVENT_FIELD, EVENT_FIELD_TYPE_ENUM, BALANCE_TEXTS } from "../../../../const";
 
 interface Props {
-  event: STORED_EVENT
+  event: STORED_EVENT,
+  showEvent: Function
 }
 
 class EventListItem extends Component<Props, {}> {
@@ -25,8 +26,8 @@ class EventListItem extends Component<Props, {}> {
   }
   render() {
     const event = Object.keys(EVENTS).map(key => EVENTS[key]).find(i => i.name === this.props.event.name);
-    console.log(this.props.event)
     return DOM.div('event-list-item', {
+      onClick: () => this.props.showEvent(event, this.props.event),
       childrens: [
         DOM.span('event-list-item__title', this.props.event.name),
         DOM.div('event-list-item__bottom-block', {
