@@ -1,18 +1,26 @@
+html
+  font-size: 16px
+  font-family: 'Arial'
+
 body
   margin: 0
   background: rgba(0, 0, 0, 0.01)
 
-#app
+.app
   margin: auto
   background: white
   width: 720px
-
-.app
   min-height: 100vh
   display: flex
   flex-direction: column
   justify-content: center
-  align-items: center    
+  align-items: center
+
+.image-hash
+  display: none
+
+input, textarea
+  border: 1px solid black
 
 @media(min-width: 1200px)
   #app

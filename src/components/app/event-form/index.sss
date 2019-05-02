@@ -1,6 +1,9 @@
 .event-form
   text-align: center
   width: 100%
+
+.modal__content-wrap:scrollbar
+  display: none
   
 .event-form__title
   font-size: 30px
@@ -15,12 +18,12 @@
   display: none
 
 .event-form__field-title
-  width: 25%
+  width: 30%
   text-align: initial
 
 .event-form__field > input:not([type='checkbox']),
 .event-form__field > textarea
-  width: 75%
+  width: 70%
   outline: none
 
 .event-form__field > select
@@ -33,8 +36,10 @@
 .event-form__input
   width: 60%
   text-align: left
+  overflow: hidden
+  text-overflow: ellipsis
 
-div.event-form__input--textarea
+span.event-form__input--textarea
   font-size: 16px
   height: 100px
   overflow: hidden

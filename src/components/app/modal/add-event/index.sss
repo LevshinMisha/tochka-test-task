@@ -4,8 +4,21 @@
   flex-direction: column
   justify-content: space-between
   align-items: center
-  min-height: 60vh
+  min-height: 80vh
   margin: auto
+
+.add-event .event-form__title
+  display: none
+
+.add-event .event-form
+  overflow-x: hidden
+
+.add-event .event-form__fields
+  overflow-y: scroll
+  max-height: calc(80vh - 41px - 53px - 20px)
+
+.add-event .event-form__fields::-webkit-scrollbar
+  width: 0px
 
 .add-event__content-wrap
   width: 100%
@@ -15,11 +28,10 @@
   width: 200px
   box-sizing: border-box
   text-align: center
-  border-radius: 15px 15px 0 0
-  border: 1px solid black
   display: inline-block
   cursor: pointer
-  padding: 10px
+  padding: 10px 0
+
 
 .add-event__event-tabs
   border-bottom: 1px solid black
@@ -33,6 +45,17 @@
   border-color: red
   color: red
 
+.add-event__button
+  margin: 10px
+
 @media(min-width: 1200px)
   .add-event
     width: 800px
+
+@media(min-height: 600px)
+  .add-event .event-form
+    padding-bottom: 15px
+  
+  .add-event .event-form__fields
+    overflow-y: scroll
+    max-height: calc(80vh - 41px - 53px - 20px - 30px)

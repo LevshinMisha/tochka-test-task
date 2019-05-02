@@ -2,6 +2,7 @@ import Button, { ButtonProps } from ".";
 
 export default class GreenButton extends Button {
   constructor(props: ButtonProps) {
-    super({...props, class: "button--green"});
+    const { class: string, ...otherProps } = props;
+    super({...otherProps, classList: ['button--green', props.class]});
   }
 }

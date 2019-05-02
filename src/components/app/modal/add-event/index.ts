@@ -60,7 +60,7 @@ class AddEventModalContent extends Component<Props, State> {
             this.eventForm.render()
           ]
         }),
-        new GreenButton({ text: "Добавить", onClick: () => this.buttonOnClick()}).render()
+        new GreenButton({ class: 'add-event__button', text: "Добавить", onClick: () => this.buttonOnClick()}).render()
       ]
     });
   }

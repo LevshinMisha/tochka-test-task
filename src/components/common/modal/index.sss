@@ -1,8 +1,5 @@
 .modal
   display: none
-
-.modal--open
-  display: flex
   align-items: center
   justify-content: center
   position: fixed
@@ -12,10 +9,17 @@
   left: 0
   background: rgba(0, 0, 0, 0.5)
 
+.modal--open
+  display: flex
+
 .modal__content-wrap
-  padding: 15px
   background: white
+  height: 80vh
 
 .modal__content-wrap--sticker
   background: url('../../../assets/sticker.png')
   background-size: cover
+
+@media(min-height: 600px)
+  .modal__content-wrap
+    padding: 15px

@@ -78,16 +78,13 @@ class EventForm extends Component<Props, {}> {
         }
       case EVENT_FIELD_TYPE_ENUM.CURRENCY:
         if (!value) {
-          const childrens = CURRENCY_OPTIONS.map(text => {
-            return DOM.create('option', { text })
+          const select = DOM.create('select', { 
+            childrens: CURRENCY_OPTIONS.map(text => DOM.create('option', { text }))
           });
-          const select = DOM.create('select', { childrens });
           inputs.push(select);
           return select;
         }
       default:
-        if (value)
-          input.classList.add('input')
         inputs.push(input);
         return input;
     }

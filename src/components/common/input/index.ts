@@ -3,21 +3,19 @@ import { Component } from "../..";
 
 import "./index.sss"
 
-export interface ButtonProps {
+interface Props {
   text: string;
   class? : string;
-  classList?: string[]
   onClick?: Function;
 }
 
-class Button extends Component<ButtonProps, {}> {
-  constructor (props: ButtonProps, state?: any) {
+class Button extends Component<Props, {}> {
+  constructor (props: Props, state?: any) {
     super(props, state, 'button')
   }
   render() {
-    const classList = this.props.class ? [this.props.class] : this.props.classList ? this.props.classList : [];
     return DOM.update(this.rootElement, {
-      classList: ['button', ...classList],
+      classList: ['button', this.props.class],
       text: this.props.text,
       onClick: this.props.onClick && (() => this.props.onClick())
     });

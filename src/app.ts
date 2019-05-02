@@ -24,13 +24,17 @@ class App extends Component<{}, {}> {
     }
   }
   render() {
-    return DOM.update(this.rootElement, {
-      class: 'app',
+    return DOM.div('app', {
       childrens: [
         new EventList({ }).render(),
         new GreenButton({ text: "Добавить", onClick: () => openModal(MODAL_TYPE.ADD_EVENT) }).render(),
         AddEventModal({}).render(),
-        ShowEventModal({}).render()
+        ShowEventModal({}).render(),
+        DOM.div('image-hash', {
+          childrens: [
+            DOM.setAttr(DOM.create('img'), 'src', StickerImage)
+          ]
+        })
       ]
     })
   }
