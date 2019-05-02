@@ -36,6 +36,14 @@ class EventList extends Component<Props, State> {
     })
   }
 
+  changeEvent(event: STORED_EVENT) {
+    this.setState({
+      events: this.state.events.map(i => i.id === event.id ? event: i),
+      sortDate: this.state.sortDate,
+      sortType: this.state.sortType
+    })
+  }
+
   showEvent(event: EVENT, showEvent: STORED_EVENT) {
     this.props.eventForm.props = { event, showEvent }
     this.props.eventForm.reRender();

@@ -1,3 +1,7 @@
+
+//@ts-ignore
+import uuid4 from 'uuid4';
+
 import { DOM } from "../../../../utils";
 import { Component } from "../../..";
 
@@ -28,6 +32,7 @@ class AddEvent extends Component<Props, State> {
     if (values.every(value => typeof value !== 'string' || !!value.length)) {
       this.props.closeModal();
       this.props.addEvent({
+        id: uuid4(),
         name: this.state.event.name,
         fields: values.map(i => i.toString())
       });

@@ -4,13 +4,16 @@ export enum EVENT_FIELD_TYPE_ENUM {
   TEXT,
   TEXTAREA,
   DATE,
-  BALANCE
+  BALANCE,
+  READ
 }
 
 export interface EVENT_FIELD {
   type: EVENT_FIELD_TYPE_ENUM,
   title: string
   showInList: boolean
+  default?: string
+  editable: boolean
 }
 
 export interface EVENT {
@@ -19,6 +22,7 @@ export interface EVENT {
 }
 
 export interface STORED_EVENT {
+  id: string
   name: string,
   fields: string[]
 }
@@ -34,32 +38,38 @@ export const EVENTS: IEVENTS = {
       {
         type: EVENT_FIELD_TYPE_ENUM.NUMBER,
         title: 'Сумма транзакции',
-        showInList: true
+        showInList: true,
+        editable: false
       },
       {
         type: EVENT_FIELD_TYPE_ENUM.CURRENCY,
         title: 'Валюта',
-        showInList: true
+        showInList: true,
+        editable: false
       },
       {
         type: EVENT_FIELD_TYPE_ENUM.TEXT,
         title: 'От кого транзакция',
-        showInList: true
+        showInList: true,
+        editable: false
       },
       {
         type: EVENT_FIELD_TYPE_ENUM.TEXTAREA,
         title: 'Описание',
-        showInList: false
+        showInList: false,
+        editable: false
       },
       {
         type: EVENT_FIELD_TYPE_ENUM.BALANCE,
         title: 'Приход или расход',
-        showInList: true
+        showInList: true,
+        editable: false
       },
       {
         type: EVENT_FIELD_TYPE_ENUM.DATE,
         title: 'Дата',
-        showInList: true
+        showInList: true,
+        editable: false
       },
     ]
   },
@@ -69,17 +79,27 @@ export const EVENTS: IEVENTS = {
       {
         type: EVENT_FIELD_TYPE_ENUM.TEXT,
         title: 'Заголовок',
-        showInList: true
+        showInList: true,
+        editable: false
       },
       {
         type: EVENT_FIELD_TYPE_ENUM.TEXTAREA,
         title: 'Содержание',
-        showInList: false
+        showInList: false,
+        editable: false
+      },
+      {
+        type: EVENT_FIELD_TYPE_ENUM.READ,
+        title: 'Ознакомлен',
+        showInList: false,
+        default: 'false',
+        editable: true
       },
       {
         type: EVENT_FIELD_TYPE_ENUM.DATE,
         title: 'Дата',
-        showInList: false
+        showInList: false,
+        editable: false
       },
     ]
   }
@@ -105,4 +125,9 @@ export const CURRENCY_OPTIONS: string[] = [
 export const BALANCE_TEXTS = {
   PLUS: '+приход',
   MINUS: '-расход'
+}
+
+export const READ_TEXTS = {
+  READ: 'ознакомлен',
+  NOT_READ: 'не ознакомлен'
 }

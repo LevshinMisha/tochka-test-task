@@ -4,10 +4,10 @@ export abstract class Component<Props, State> {
   rootElement: HTMLElement
   props: Props
   state: State
-  constructor(props: Props, state?: State) {
+  constructor(props: Props, state?: State, tagName = 'div') {
     this.props = props;
     if (state) this.state = state;
-    this.rootElement = DOM.create('div');
+    this.rootElement = DOM.create(tagName);
     this.componentDidMount();
   }
   componentDidMount() {

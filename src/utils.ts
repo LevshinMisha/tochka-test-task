@@ -5,7 +5,8 @@ interface UpdateObj {
   text?: string,
   class?: string,
   childrens?: HTMLElement[],
-  onClick?: Function
+  onClick?: Function,
+  id?: string
 }
 
 export const DOM = {
@@ -19,6 +20,7 @@ export const DOM = {
       if (update.class) DOM.setClassList(element, [update.class]);
       if (update.childrens) DOM.setChildrens(element, update.childrens);
       if (update.onClick) DOM.setOnClick(element, update.onClick)
+      if (update.id) DOM.setId(element, update.id)
     }
     return element;
   },
@@ -47,6 +49,9 @@ export const DOM = {
   setOnClick: (element: HTMLElement, onClick: Function) => {
     element.onclick = event => onClick(event);
     return element;
+  },
+  setId: (element: HTMLElement, id: string) => {
+    return DOM.setAttr(element, 'id', id)
   },
   setAttr: (element: HTMLElement, attrName: string, value: string) => {
     element.setAttribute(attrName, value);

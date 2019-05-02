@@ -1,7 +1,7 @@
 import { DOM } from "../../../utils";
 import { Component } from "../..";
 
-import { EVENT, EVENT_FIELD, EVENT_FIELD_TYPE_ENUM, CURRENCY_OPTIONS, BALANCE_TEXTS, STORED_EVENT } from "../../../const";
+import { EVENT, EVENT_FIELD, EVENT_FIELD_TYPE_ENUM, CURRENCY_OPTIONS, BALANCE_TEXTS, STORED_EVENT, READ_TEXTS } from "../../../const";
 import CheckboxGreenRed from "../../common/checkbox-green-red";
 
 import './index.sss';
@@ -20,15 +20,25 @@ class EventForm extends Component<Props, {}> {
       DOM.setText(input, value);
     switch (field.type) {
       case EVENT_FIELD_TYPE_ENUM.BALANCE:
-        const checkboxGreenRed = new CheckboxGreenRed({ 
+        const balanceCheckbox = new CheckboxGreenRed({ 
           greenText: BALANCE_TEXTS.PLUS,
           redText: BALANCE_TEXTS.MINUS,
           checked: !value || value === 'true',
           disabled: !!value
         });
-        const rendered = checkboxGreenRed.render();
-        inputs.push(checkboxGreenRed.getCheckbox());
-        return rendered;
+        const renderedBalance = balanceCheckbox.render();
+        inputs.push(balanceCheckbox.getCheckbox());
+        return renderedBalance;
+      case EVENT_FIELD_TYPE_ENUM.READ:
+        const readCheckbox = new CheckboxGreenRed({ 
+          greenText: READ_TEXTS.READ,
+          redText: READ_TEXTS.NOT_READ,
+          checked: !value || value === 'true',
+          radio: true
+        });
+        const renderedRead = readCheckbox.render();
+        inputs.push(readCheckbox.getCheckbox());
+        return renderedRead;
       case EVENT_FIELD_TYPE_ENUM.TEXTAREA:
         if (!value) {
           const textarea = DOM.create('textarea', { classList: ['event-form__input', 'event-form__input--textarea']});
@@ -72,6 +82,8 @@ class EventForm extends Component<Props, {}> {
       if (DOM.getTagName(i) === 'INPUT' || DOM.getTagName(i) === 'TEXTAREA')
         if (DOM.getAttr(i, 'type') === 'checkbox')
           (<HTMLInputElement>i).checked = true;
+        else if (DOM.getAttr(i, 'type') === 'radio')
+          (<HTMLInputElement>i).checked = false;
         else
           DOM.setInputValue(i, '')
       if (DOM.getTagName(i) === 'SELECT')
@@ -88,7 +100,11 @@ class EventForm extends Component<Props, {}> {
         DOM.span('event-form__title', this.props.event.name),
         DOM.div('event-form__fields', {
           childrens: this.props.event.fields.map((field, i) => {
-            return DOM.div('event-form__field', {
+            return DOM.div('', {
+              classList: [
+                'event-form__field',
+                field.default && !this.props.showEvent && 'event-form__field--hidden'
+              ],
               childrens: [
                 DOM.span('event-form__field-title', field.title),
                 this.renderInput(field, this.inputs, this.props.showEvent && this.props.showEvent.fields[i])

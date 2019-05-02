@@ -27,6 +27,7 @@ class EventListItem extends Component<Props, {}> {
   render() {
     const event = Object.keys(EVENTS).map(key => EVENTS[key]).find(i => i.name === this.props.event.name);
     return DOM.div('event-list-item', {
+      id: this.props.event.id,
       onClick: () => this.props.showEvent(event, this.props.event),
       childrens: [
         DOM.span('event-list-item__title', this.props.event.name),

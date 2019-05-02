@@ -23,6 +23,7 @@
     "static-server": "2.2.1"
   },
   "devDependencies": {
+    "uuid4": "1.1.4",
     "autoprefixer": "9.5.1",
     "cssnano": "4.1.10",
     "parcel": "1.12.3",

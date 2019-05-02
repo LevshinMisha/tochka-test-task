@@ -13,12 +13,19 @@ interface Props {
 }
 
 class ShowEventModalContent extends Component<Props, {}> {
+  eventForm: EventForm
+  changeEvent(event: STORED_EVENT) {
+    this.eventForm.props.showEvent
+  }
+  deleteEvent(event: STORED_EVENT) {
+    
+  }
   render() {
-    console.log(123, 'kek')
+    this.eventForm = new EventForm(this.props)
     return DOM.update(this.rootElement, {
       class: 'show-event-modal',
       childrens: [ 
-        new EventForm(this.props).render(),
+        this.eventForm.render(),
         new RedButton({ text: 'Удалить' }).render()
       ]
     });

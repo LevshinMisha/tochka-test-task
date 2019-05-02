@@ -8,16 +8,18 @@ interface Props {
   redText: string;
   checked: boolean;
   disabled?: boolean;
+  radio?: boolean;
 }
 
 class CheckboxGreenRed extends Component<Props, {}> {
   input: HTMLElement
   render() {
     this.input = DOM.create('input', { class: 'checkbox-green-red__checkbox'});
-    DOM.setAttr(this.input, 'type', 'checkbox');
+    DOM.setAttr(this.input, 'type', this.props.radio ? 'radio' : 'checkbox');
     if (this.props.checked)
       (<HTMLInputElement>this.input).checked = true;
-    DOM.addAttr(this.input, 'disabled', this.props.disabled)
+      if (this.props.disabled)
+      DOM.addAttr(this.input, 'disabled')
     return DOM.create('label', { 
       classList: ['checkbox-green-red', this.props.disabled && 'checkbox-green-red--disabled'],
       childrens: [

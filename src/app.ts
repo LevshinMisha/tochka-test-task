@@ -10,7 +10,6 @@ import { Component } from "./components";
 //@ts-ignore
 import StickerImage from './assets/sticker.png';
 import './index.sss';
-import EventForm from "./components/app/event-form";
 import { EVENTS } from "./const";
 import ShowEventModal from "./components/app/modal/show-event";
 

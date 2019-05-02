@@ -10,8 +10,11 @@ export interface ButtonProps {
 }
 
 class Button extends Component<ButtonProps, {}> {
+  constructor (props: ButtonProps, state?: any) {
+    super(props, state, 'button')
+  }
   render() {
-    return DOM.create('button', {
+    return DOM.update(this.rootElement, {
       classList: ['button', this.props.class],
       text: this.props.text,
       onClick: this.props.onClick && (() => this.props.onClick())
