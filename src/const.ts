@@ -14,7 +14,10 @@ export interface EVENT_FIELD {
   showInList: boolean
   default?: string
   editable: boolean
-  mask?: RegExp
+  mask?: {
+    regexp: RegExp,
+    errorMessage: string
+  }
 }
 
 export interface EVENT {
@@ -41,7 +44,10 @@ export const EVENTS: IEVENTS = {
         title: 'Сумма транзакции',
         showInList: true,
         editable: false,
-        mask: /[1-9][0-9]*/
+        mask: {
+          regexp: /[1-9][0-9]*/,
+          errorMessage: 'Сумма должна быть положительная'
+        }
       },
       {
         type: EVENT_FIELD_TYPE_ENUM.CURRENCY,

@@ -4,22 +4,25 @@ import { Component } from "../..";
 import "./index.sss"
 
 interface Props {
-  text: string;
+  textarea?: boolean;
   class? : string;
-  onClick?: Function;
 }
 
-class Button extends Component<Props, {}> {
+class Input extends Component<Props, {}> {
   constructor (props: Props, state?: any) {
-    super(props, state, 'button')
+    super(props, state, props.textarea ? 'textarea' : 'input')
+  }
+  componentDidMount() {
+    this.rootElement.onchange = () => this.rootElement.classList.remove('input--error')
+  }
+  addError() {
+    this.rootElement.classList.add('input--error')
   }
   render() {
     return DOM.update(this.rootElement, {
-      classList: ['button', this.props.class],
-      text: this.props.text,
-      onClick: this.props.onClick && (() => this.props.onClick())
+      classList: ['input', this.props.class]
     });
   }
 }
 
-export default Button;
+export default Input;

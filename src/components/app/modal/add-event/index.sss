@@ -4,14 +4,14 @@
   flex-direction: column
   justify-content: space-between
   align-items: center
-  min-height: 80vh
+  min-height: 60vh
   margin: auto
-
-.add-event .event-form__title
-  display: none
 
 .add-event .event-form
   overflow-x: hidden
+
+.add-event .event-form__title
+  display: none
 
 .add-event .event-form__fields
   overflow-y: scroll
@@ -53,8 +53,8 @@
     width: 800px
 
 @media(min-height: 600px)
-  .add-event .event-form
-    padding-bottom: 15px
+  .add-event .event-form__title
+    display: inline-block
   
   .add-event .event-form__fields
     overflow-y: scroll

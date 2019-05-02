@@ -29,16 +29,35 @@ class AddEventModalContent extends Component<Props, State> {
 
   buttonOnClick() {
     const values = this.eventForm.inputs.map(i => DOM.getAttr(i ,'type') !== 'checkbox' && DOM.getAttr(i ,'type') !== 'radio' ? i.value : (<HTMLInputElement>i).checked);
-    if (values.every(value => typeof value !== 'string' || !!value.length)) {
-      closeModal();
-      addEvent({
-        id: uuid4(),
-        name: this.state.event.name,
-        fields: values.map(i => i.toString())
-      });
-      this.eventForm.clear();
-    } else
-      alert('Не все поля заполнены')
+    let isInputsValid = true;
+    for (let i = 0; i < values.length; i++) {
+      const value = values[i];
+      const field = this.state.event.fields[i];
+      if (field.mask)
+        if(!field.mask.regexp.test(value.toString())) {
+          alert(field.mask.errorMessage);
+          isInputsValid = false;
+          this.eventForm.inputs[i].classList.add('event-form__input--error')
+        }
+    }
+    if (isInputsValid)
+      if (values.every(value => typeof value !== 'string' || !!value.length)) {
+        closeModal();
+        addEvent({
+          id: uuid4(),
+          name: this.state.event.name,
+          fields: values.map(i => i.toString())
+        });
+        this.eventForm.clear();
+      } else {
+        alert('Не все поля заполнены');
+        values.forEach((value, i) => {
+          if (typeof value === 'string' && !value.length) {
+            this.eventForm.inputs[i].classList.add('event-form__input--error')
+          } 
+        })
+      }
+        
   }
   
   render() {

@@ -7,6 +7,7 @@ import CheckboxGreenRed from "../../common/checkbox-green-red";
 import './index.sss';
 import { subscribeOnShowEvent, getShowEvent, setShowEvent } from "../../../store/showEvent";
 import { setEvent } from "../../../store/events";
+import Input from "../../common/input";
 
 interface Props {
   event: EVENT,
@@ -28,6 +29,8 @@ class EventForm extends Component<Props, {}> {
     const input = DOM.create(!value ? 'input' : 'div', { class: 'event-form__input' });
     if (value)
       DOM.setText(input, value);
+    else 
+      input.oninput = () => input.classList.remove('event-form__input--error')
     switch (field.type) {
       case EVENT_FIELD_TYPE_ENUM.BALANCE:
         const balanceCheckbox = new CheckboxGreenRed({ 
@@ -58,7 +61,7 @@ class EventForm extends Component<Props, {}> {
       case EVENT_FIELD_TYPE_ENUM.TEXTAREA:
         if (!value) {
           const textarea = DOM.create('textarea', { classList: ['event-form__input', 'event-form__input--textarea']});
-          if (value) DOM.setAttr(textarea, 'value', value);
+          textarea.oninput = () => textarea.classList.remove('event-form__input--error')
           inputs.push(textarea);
           return textarea;
         }
