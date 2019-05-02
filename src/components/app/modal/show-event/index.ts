@@ -3,29 +3,30 @@ import { Component } from "../../..";
 
 import "./index.sss"
 import EventForm from "../../event-form";
-import { EVENT, STORED_EVENT } from "../../../../const";
+import { STORED_EVENT, MODAL_TYPE, EVENTS } from "../../../../const";
 import Modal from "../../../common/modal";
 import RedButton from "../../../common/button/red";
+import { getShowEvent, subscribeOnShowEvent } from "../../../../store/showEvent";
 
 interface Props {
-  event: EVENT,
   showEvent?: STORED_EVENT
 }
 
 class ShowEventModalContent extends Component<Props, {}> {
-  eventForm: EventForm
-  changeEvent(event: STORED_EVENT) {
-    this.eventForm.props.showEvent
-  }
-  deleteEvent(event: STORED_EVENT) {
-    
+  constructor(props: Props) {
+    super(props)
+    subscribeOnShowEvent(() => this.reRender())
   }
   render() {
-    this.eventForm = new EventForm(this.props)
+    if (!getShowEvent())
+      return this.rootElement;
     return DOM.update(this.rootElement, {
       class: 'show-event-modal',
       childrens: [ 
-        this.eventForm.render(),
+        new EventForm({ 
+          event: Object.keys(EVENTS).map(key => EVENTS[key]).find(i => i.name === getShowEvent().name),
+          showEvent: getShowEvent()
+        }).render(),
         new RedButton({ text: 'Удалить' }).render()
       ]
     });
@@ -35,7 +36,8 @@ class ShowEventModalContent extends Component<Props, {}> {
 function ShowEventModal(props: Props) {
   return new Modal({
     component: new ShowEventModalContent(props),
-    stickerBackground: true
+    stickerBackground: true,
+    modalType: MODAL_TYPE.SHOW_EVENT
   })
 }
 

@@ -6,20 +6,20 @@ import { DOM } from "../../../../utils";
 import { Component } from "../../..";
 
 import './index.sss';
-import { EVENTS, EVENT } from "../../../../const";
+import { EVENTS, EVENT, MODAL_TYPE } from "../../../../const";
 import EventForm from "../../event-form";
 import GreenButton from "../../../common/button/green";
+import { addEvent } from '../../../../store/events';
+import { closeModal } from '../../../../store/modal';
+import Modal from '../../../common/modal';
 
-interface Props {
-  addEvent: Function,
-  closeModal?: Function;
-}
+interface Props {}
 
 interface State {
   event: EVENT
 }
 
-class AddEvent extends Component<Props, State> {
+class AddEventModalContent extends Component<Props, State> {
   eventTabs: HTMLElement
   eventForm: EventForm
 
@@ -28,10 +28,10 @@ class AddEvent extends Component<Props, State> {
   }
 
   buttonOnClick() {
-    const values = this.eventForm.inputs.map(i => DOM.getAttr(i ,'type') !== 'checkbox' ? i.value : (<HTMLInputElement>i).checked);
+    const values = this.eventForm.inputs.map(i => DOM.getAttr(i ,'type') !== 'checkbox' && DOM.getAttr(i ,'type') !== 'radio' ? i.value : (<HTMLInputElement>i).checked);
     if (values.every(value => typeof value !== 'string' || !!value.length)) {
-      this.props.closeModal();
-      this.props.addEvent({
+      closeModal();
+      addEvent({
         id: uuid4(),
         name: this.state.event.name,
         fields: values.map(i => i.toString())
@@ -71,10 +71,16 @@ class AddEvent extends Component<Props, State> {
       if (this.state.event === EVENTS[key]) tab.classList.add('add-event__event-tab--active')
       else tab.classList.remove('add-event__event-tab--active')
     })
-    this.eventForm.props = { event: this.state.event };
-    this.eventForm.reRender();
+    this.eventForm.replaceProps({ event: this.state.event })
     return this.rootElement;
   }
 }
 
-export default AddEvent;
+function AddEventModal(props: Props) {
+  return new Modal({
+    component: new AddEventModalContent(props),
+    modalType: MODAL_TYPE.ADD_EVENT
+  })
+}
+
+export default AddEventModal;

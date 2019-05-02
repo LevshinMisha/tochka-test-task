@@ -5,6 +5,8 @@ import { EVENT, EVENT_FIELD, EVENT_FIELD_TYPE_ENUM, CURRENCY_OPTIONS, BALANCE_TE
 import CheckboxGreenRed from "../../common/checkbox-green-red";
 
 import './index.sss';
+import { subscribeOnShowEvent, getShowEvent, setShowEvent } from "../../../store/showEvent";
+import { setEvent } from "../../../store/events";
 
 interface Props {
   event: EVENT,
@@ -13,6 +15,14 @@ interface Props {
 
 class EventForm extends Component<Props, {}> {
   inputs: HTMLInputElement[] = []
+
+  constructor(props: Props) {
+    super(props)
+    if (props.showEvent)
+      subscribeOnShowEvent(() => {
+        this.reRender()
+      });
+  }
 
   renderInput(field: EVENT_FIELD, inputs: HTMLElement[], value?: string) {
     const input = DOM.create(!value ? 'input' : 'div', { class: 'event-form__input' });
@@ -33,11 +43,17 @@ class EventForm extends Component<Props, {}> {
         const readCheckbox = new CheckboxGreenRed({ 
           greenText: READ_TEXTS.READ,
           redText: READ_TEXTS.NOT_READ,
-          checked: !value || value === 'true',
+          checked: value === 'true',
           radio: true
         });
         const renderedRead = readCheckbox.render();
-        inputs.push(readCheckbox.getCheckbox());
+        const checboxRead = readCheckbox.getCheckbox();
+        const readIndex = this.inputs.length + 1;
+        checboxRead.onchange = () => setEvent({
+          ...this.props.showEvent,
+          fields: this.props.showEvent.fields.map((e, i) => i === readIndex ? 'true' : e)
+        })
+        inputs.push(checboxRead);
         return renderedRead;
       case EVENT_FIELD_TYPE_ENUM.TEXTAREA:
         if (!value) {

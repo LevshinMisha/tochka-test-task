@@ -14,12 +14,17 @@ export abstract class Component<Props, State> {
 
   }
   abstract render(): HTMLElement
-  setState(newState: any): void {
+  setState(newState: any) {
     this.state = {
       ...this.state,
       ...newState
     }
     this.reRender();
+  }
+  replaceProps(newProps: Props) {
+    this.props = newProps;
+    DOM.setHtml(this.rootElement, '');
+    return this.render();
   }
   reRender(): HTMLElement {
     DOM.setClassList(this.rootElement, []);

@@ -1,11 +1,15 @@
-import { STORED_EVENT } from "./const";
+import { STORED_EVENT, MODAL_TYPE } from "../const";
 
 interface Store {
-  events: any[]
+  events: STORED_EVENT[]
+  showEvent: STORED_EVENT,
+  modal?: MODAL_TYPE
 }
 
 const store: Store = {
-  events: []
+  events: [],
+  showEvent: null,
+  modal: null
 }
 
 interface Subscribed {

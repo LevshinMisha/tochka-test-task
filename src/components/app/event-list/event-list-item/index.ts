@@ -2,11 +2,12 @@ import { DOM } from "../../../../utils";
 import { Component } from "../../..";
 
 import "./index.sss"
-import { STORED_EVENT, EVENTS, EVENT, EVENT_FIELD, EVENT_FIELD_TYPE_ENUM, BALANCE_TEXTS } from "../../../../const";
+import { STORED_EVENT, EVENTS, EVENT, EVENT_FIELD, EVENT_FIELD_TYPE_ENUM, BALANCE_TEXTS, MODAL_TYPE } from "../../../../const";
+import { setShowEvent } from "../../../../store/showEvent";
+import { openModal } from "../../../../store/modal";
 
 interface Props {
-  event: STORED_EVENT,
-  showEvent: Function
+  event: STORED_EVENT
 }
 
 class EventListItem extends Component<Props, {}> {
@@ -24,11 +25,15 @@ class EventListItem extends Component<Props, {}> {
         return DOM.span('event-list-item__field-value', value);
     }
   }
+  showEvent(event: STORED_EVENT) {
+    setShowEvent(event);
+    openModal(MODAL_TYPE.SHOW_EVENT);
+  }
   render() {
     const event = Object.keys(EVENTS).map(key => EVENTS[key]).find(i => i.name === this.props.event.name);
     return DOM.div('event-list-item', {
       id: this.props.event.id,
-      onClick: () => this.props.showEvent(event, this.props.event),
+      onClick: () => this.showEvent(this.props.event),
       childrens: [
         DOM.span('event-list-item__title', this.props.event.name),
         DOM.div('event-list-item__bottom-block', {

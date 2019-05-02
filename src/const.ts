@@ -106,7 +106,8 @@ export const EVENTS: IEVENTS = {
 }
 
 export enum MODAL_TYPE {
-  ADD_EVENT
+  ADD_EVENT,
+  SHOW_EVENT
 }
 
 export enum SORT_TYPE {

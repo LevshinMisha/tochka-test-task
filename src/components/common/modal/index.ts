@@ -2,34 +2,25 @@ import { Component, AnyComponent } from "../..";
 import { DOM } from "../../../utils";
 
 import "./index.sss";
+import { subscribeOnModal, closeModal, isModalOpen } from "../../../store/modal";
+import { MODAL_TYPE } from "../../../const";
 
 
 export interface ModalProps {
   component: AnyComponent,
+  modalType: MODAL_TYPE
   stickerBackground?: boolean
 }
 
-interface State {
-  open: boolean
-}
-
-class Modal extends Component<ModalProps, State> {
-  state = { open: false }
-  componentDidMount() {
-    this.open = this.open.bind(this);
-    this.close = this.close.bind(this);
-  }
-  open() {
-    this.setState({ open: true });
-  }
-  close () {
-    this.setState({ open: false });
+class Modal extends Component<ModalProps, {}> {
+  constructor(props: ModalProps) {
+    super(props);
+    subscribeOnModal(() => this.reRender())
   }
   render() {
-    this.props.component.props = { ...this.props.component.props, closeModal: this.close };
     return DOM.update(this.rootElement, {
-      classList: ['modal', this.state.open && 'modal--open'],
-      onClick: () => this.close(),
+      classList: ['modal', isModalOpen(this.props.modalType) && 'modal--open'],
+      onClick: () => closeModal(),
       childrens: [
         DOM.div('', {
           classList: [
@@ -43,7 +34,7 @@ class Modal extends Component<ModalProps, State> {
     });
   }
   reRender() {
-    return DOM.setClassList(this.rootElement, ['modal', this.state.open && 'modal--open']);
+    return DOM.setClassList(this.rootElement, ['modal', isModalOpen(this.props.modalType) && 'modal--open']);
   }
 }
 

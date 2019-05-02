@@ -18,7 +18,7 @@ class CheckboxGreenRed extends Component<Props, {}> {
     DOM.setAttr(this.input, 'type', this.props.radio ? 'radio' : 'checkbox');
     if (this.props.checked)
       (<HTMLInputElement>this.input).checked = true;
-      if (this.props.disabled)
+    if (this.props.disabled)
       DOM.addAttr(this.input, 'disabled')
     return DOM.create('label', { 
       classList: ['checkbox-green-red', this.props.disabled && 'checkbox-green-red--disabled'],
