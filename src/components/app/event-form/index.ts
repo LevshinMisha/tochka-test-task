@@ -118,7 +118,7 @@ class EventForm extends Component<Props, {}> {
             return DOM.div('', {
               classList: [
                 'event-form__field',
-                field.default && !this.props.showEvent && 'event-form__field--hidden'
+                field.hideOnCreate && !this.props.showEvent && 'event-form__field--hidden'
               ],
               childrens: [
                 DOM.span('event-form__field-title', field.title),
