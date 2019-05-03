@@ -36,10 +36,6 @@ const sortByName = (ask: boolean) => (listItem1: EventListItem, listItem2: Event
   return name1 >= name2 ? -1 * mult : 1 * mult;
 }
 
-const appendItem = (sortedList: EventListItem[], value: string, func: Function, ask: boolean) {
-
-}
-
 class EventList extends Component<Props, State> {
   listItems: EventListItem[]
   constructor(props: Props) {
