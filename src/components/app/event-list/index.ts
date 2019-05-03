@@ -27,27 +27,40 @@ const sortByDate = (ask: boolean) => (listItem1: EventListItem, listItem2: Event
   return date1 >= date2 ? -1 * mult : 1 * mult;
 }
 
+const sortByName = (ask: boolean) => (listItem1: EventListItem, listItem2: EventListItem) => {
+  const mult = ask ? -1 : 1;
+  const name1 = listItem1.getEvent().name;
+  const name2 = listItem2.getEvent().name;
+  return name1 >= name2 ? -1 * mult : 1 * mult;
+}
+
 class EventList extends Component<Props, State> {
   listItems: EventListItem[]
   constructor(props: Props) {
     super(props);
     subscribeOnEvents(() => {
       if (getEvents().length > 1) {
-        const events = getEvents();
-        const eventsId = events.map(i => i.id);
-        const existedEventsId = this.listItems.map(i => i.getEvent().id);
-        if (eventsId.length > existedEventsId.length) {
-          this.addEventToList(findOneDifferentElement(eventsId, existedEventsId))
-        } else if (eventsId.length < existedEventsId.length) {
-          this.removeEventFromList(findOneDifferentElement(existedEventsId, eventsId))
-        } else {
-          for (let i = 0; i < events.length; i++) {
-            if (JSON.stringify(events[i].fields) !== JSON.stringify(this.listItems[i].getEvent().fields)) {
-              this.listItems[i].replaceProps({ event: events[i]})
-              return;
+        if (this.listItems.length) {
+          const events = getEvents();
+          const eventsId = events.map(i => i.id);
+          const existedEventsId = this.listItems.map(i => i.getEvent().id);
+          if (eventsId.length > existedEventsId.length) {
+            this.addEventToList(findOneDifferentElement(eventsId, existedEventsId))
+          } else if (eventsId.length < existedEventsId.length) {
+            this.removeEventFromList(findOneDifferentElement(existedEventsId, eventsId))
+          } else {
+            for (let i = 0; i < events.length; i++) {
+              if (JSON.stringify(events[i].fields) !== JSON.stringify(this.listItems[i].getEvent().fields)) {
+                this.listItems[i].replaceProps({ event: events[i]})
+                return;
+              }
             }
           }
+        } else {
+          this.reRender();
+          this.sortItems();
         }
+        
       } else 
         this.reRender();
     });
@@ -59,7 +72,7 @@ class EventList extends Component<Props, State> {
     const event = getEvents().find(i => i.id === id);
     const listItem = new EventListItem({ event });
     this.listItems.push(listItem);
-    this.rootElement.appendChild(listItem.render())
+    this.rootElement.appendChild(listItem.render());
   }
 
   removeEventFromList(eventId: string) {
@@ -68,23 +81,17 @@ class EventList extends Component<Props, State> {
     item.remove();
   }
   sortItems() {
-    if (getSort() === SORT_TYPE.NONE) {
-      this.listItems.forEach(i => {
-        this.rootElement.appendChild(i.rootElement);
-      })
-    }
     switch (getSort()) {
       case (SORT_TYPE.NONE):
-        console.log('kek')
         return this.listItems.forEach(this.appendItem);
       case (SORT_TYPE.DATE_ASK):
         return [...this.listItems].sort(sortByDate(true)).forEach(this.appendItem);
       case (SORT_TYPE.DATE_DESC):
         return [...this.listItems].sort(sortByDate(false)).forEach(this.appendItem);
       case (SORT_TYPE.TYPE_ASK):
+        return [...this.listItems].sort(sortByName(true)).forEach(this.appendItem);
       case (SORT_TYPE.TYPE_DESC):
-      default:
-        return;
+        return [...this.listItems].sort(sortByName(false)).forEach(this.appendItem);
     }
   }
   appendItem(item: EventListItem) {

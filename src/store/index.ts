@@ -28,6 +28,12 @@ export const subscribe = (key: string, func: Function) => {
 export const set = (key: string, value: any) => {
   store[key] = value;
   subscribed.filter(i => i.key === key).forEach(i => i.func());
+  localStorage.setItem('storage', JSON.stringify(store));
 }
 
 export const get = (key: string) => store[key];
+
+export const restoreStorage = () => {
+  const restoredData = JSON.parse(localStorage.getItem('storage'));
+  Object.keys(restoredData).forEach(key => set(key, restoredData[key]));
+}

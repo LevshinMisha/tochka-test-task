@@ -13,6 +13,7 @@ import { MODAL_TYPE } from "./const";
 import ShowEventModal from "./components/app/modal/show-event";
 import { openModal, closeModal } from "./store/modal";
 import SortSelector from "./components/app/sort-selector";
+import { restoreStorage } from "./store";
 
 const ESC_CHAR_CODE = 27;
 
@@ -21,6 +22,7 @@ class App extends Component<{}, {}> {
     document.onkeydown = event => {
       if (event.keyCode === ESC_CHAR_CODE) closeModal() // закрытие модалок на esc
     }
+    restoreStorage();
   }
   render() {
     return DOM.div('app', {

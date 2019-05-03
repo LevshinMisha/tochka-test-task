@@ -106,7 +106,7 @@ export const EVENTS: IEVENTS = {
       {
         type: EVENT_FIELD_TYPE_ENUM.DATE,
         title: 'Дата',
-        showInList: true,
+        showInList: false,
         editable: false
       },
     ]
