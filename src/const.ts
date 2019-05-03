@@ -13,7 +13,6 @@ export interface EVENT_FIELD {
   title: string
   showInList: boolean
   default?: string
-  editable: boolean
   mask?: {
     regexp: RegExp,
     errorMessage: string
@@ -43,7 +42,6 @@ export const EVENTS: IEVENTS = {
         type: EVENT_FIELD_TYPE_ENUM.NUMBER,
         title: 'Сумма транзакции',
         showInList: true,
-        editable: false,
         mask: {
           regexp: /[1-9][0-9]*/,
           errorMessage: 'Сумма должна быть положительная'
@@ -53,31 +51,26 @@ export const EVENTS: IEVENTS = {
         type: EVENT_FIELD_TYPE_ENUM.CURRENCY,
         title: 'Валюта',
         showInList: true,
-        editable: false
       },
       {
         type: EVENT_FIELD_TYPE_ENUM.TEXT,
         title: 'От кого транзакция',
         showInList: true,
-        editable: false
       },
       {
         type: EVENT_FIELD_TYPE_ENUM.TEXTAREA,
         title: 'Описание',
         showInList: false,
-        editable: false
       },
       {
         type: EVENT_FIELD_TYPE_ENUM.BALANCE,
         title: 'Приход или расход',
         showInList: true,
-        editable: false
       },
       {
         type: EVENT_FIELD_TYPE_ENUM.DATE,
         title: 'Дата',
         showInList: true,
-        editable: false
       },
     ]
   },
@@ -88,29 +81,25 @@ export const EVENTS: IEVENTS = {
         type: EVENT_FIELD_TYPE_ENUM.TEXT,
         title: 'Заголовок',
         showInList: true,
-        editable: false
       },
       {
         type: EVENT_FIELD_TYPE_ENUM.TEXTAREA,
         title: 'Содержание',
         showInList: false,
-        editable: false
       },
       {
         type: EVENT_FIELD_TYPE_ENUM.READ,
         title: 'Ознакомлен',
         showInList: false,
         default: 'false',
-        editable: true
       },
       {
         type: EVENT_FIELD_TYPE_ENUM.DATE,
         title: 'Дата',
         showInList: false,
-        editable: false
       },
     ]
-  }
+  },
 }
 
 export enum MODAL_TYPE {
