@@ -100,6 +100,35 @@ export const EVENTS: IEVENTS = {
       },
     ]
   },
+  REQUEST: {
+    name: 'Запрос перевода',
+    fields: [
+      {
+        type: EVENT_FIELD_TYPE_ENUM.TEXT,
+        title: 'Имя',
+        showInList: true,
+      },
+      {
+        type: EVENT_FIELD_TYPE_ENUM.TEXT,
+        title: 'Счет',
+        showInList: true,
+        mask: {
+          regexp: /^51401792[0-9]{8}$/,
+          errorMessage: 'Счет должен состоять из 16 цифр и принадлежать нашему банку!'
+        }
+      },
+      {
+        type: EVENT_FIELD_TYPE_ENUM.NUMBER,
+        title: 'Сумма перевода',
+        showInList: true,
+      },
+      {
+        type: EVENT_FIELD_TYPE_ENUM.DATE,
+        title: 'Дата',
+        showInList: true,
+      },
+    ]
+  },
 }
 
 export enum MODAL_TYPE {
