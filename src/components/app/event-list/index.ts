@@ -72,7 +72,42 @@ class EventList extends Component<Props, State> {
     const event = getEvents().find(i => i.id === id);
     const listItem = new EventListItem({ event });
     this.listItems.push(listItem);
-    this.rootElement.appendChild(listItem.render());
+    const sortedList = this.getSortedList().filter(i => i.getEvent().id !== id);
+    const eventDate = getDate(listItem);
+    const eventName = listItem.getEvent().name;
+    switch (getSort()) {
+      case (SORT_TYPE.NONE):
+        return this.rootElement.appendChild(listItem.render());
+      case (SORT_TYPE.DATE_ASK):
+        for (let i = 0; i < sortedList.length; i++) {
+          const date = getDate(sortedList[i]);
+          if (eventDate <= date) {
+            return this.rootElement.insertBefore(listItem.render(), sortedList[i].rootElement);
+          }
+        }
+        return this.rootElement.appendChild(listItem.render());
+      case (SORT_TYPE.DATE_DESC):
+        for (let i = 0; i < sortedList.length; i++) {
+          const date = getDate(sortedList[i]);
+          if (eventDate >= date)
+            return this.rootElement.insertBefore(listItem.render(), sortedList[i].rootElement)
+        }
+        return this.rootElement.appendChild(listItem.render());
+      case (SORT_TYPE.TYPE_ASK):
+        for (let i = 0; i < sortedList.length; i++) {
+          const name = sortedList[i].getEvent().name;
+          if (eventName <= name)
+            return this.rootElement.insertBefore(listItem.render(), sortedList[i].rootElement)
+        }
+        return this.rootElement.appendChild(listItem.render());
+      case (SORT_TYPE.TYPE_DESC):
+        for (let i = 0; i < sortedList.length; i++) {
+          const name = sortedList[i].getEvent().name;
+          if (eventName >= name)
+            return this.rootElement.insertBefore(listItem.render(), sortedList[i].rootElement)
+        }
+        return this.rootElement.appendChild(listItem.render());
+    }
   }
 
   removeEventFromList(eventId: string) {
@@ -81,17 +116,20 @@ class EventList extends Component<Props, State> {
     item.remove();
   }
   sortItems() {
+    return this.getSortedList().forEach(this.appendItem);
+  }
+  getSortedList() {
     switch (getSort()) {
       case (SORT_TYPE.NONE):
-        return this.listItems.forEach(this.appendItem);
+        return this.listItems;
       case (SORT_TYPE.DATE_ASK):
-        return [...this.listItems].sort(sortByDate(true)).forEach(this.appendItem);
+        return [...this.listItems].sort(sortByDate(true));
       case (SORT_TYPE.DATE_DESC):
-        return [...this.listItems].sort(sortByDate(false)).forEach(this.appendItem);
+        return [...this.listItems].sort(sortByDate(false));
       case (SORT_TYPE.TYPE_ASK):
-        return [...this.listItems].sort(sortByName(true)).forEach(this.appendItem);
+        return [...this.listItems].sort(sortByName(true));
       case (SORT_TYPE.TYPE_DESC):
-        return [...this.listItems].sort(sortByName(false)).forEach(this.appendItem);
+        return [...this.listItems].sort(sortByName(false));
     }
   }
   appendItem(item: EventListItem) {
@@ -103,7 +141,7 @@ class EventList extends Component<Props, State> {
     if (getEvents().length)
       return DOM.update(this.rootElement, {
         class: 'event-list',
-        childrens: this.listItems.map(i => i.render())
+        childrens: this.getSortedList().map(i => i.render())
       })
     return DOM.update(this.rootElement, {
       classList: ['event-list', 'event-list--empty'],

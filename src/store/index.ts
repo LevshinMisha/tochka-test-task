@@ -35,5 +35,6 @@ export const get = (key: string) => store[key];
 
 export const restoreStorage = () => {
   const restoredData = JSON.parse(localStorage.getItem('storage'));
-  Object.keys(restoredData).forEach(key => set(key, restoredData[key]));
+  if (restoredData)
+    Object.keys(restoredData).forEach(key => set(key, restoredData[key]));
 }

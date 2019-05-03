@@ -13,6 +13,7 @@ import { closeModal } from "../../../../store/modal";
 interface Props {}
 
 class ShowEventModalContent extends Component<Props, {}> {
+  eventForm: EventForm
   constructor(props: Props) {
     super(props)
     subscribeOnShowEvent(() => this.reRender());
@@ -26,18 +27,26 @@ class ShowEventModalContent extends Component<Props, {}> {
     }
   }
   render() {
+    this.eventForm = new EventForm({ 
+      event: EVENTS.FINANCE,
+      showEvent: getShowEvent()
+    })
     if (!getShowEvent())
       return this.rootElement;
     return DOM.update(this.rootElement, {
       class: 'show-event-modal',
       childrens: [ 
-        new EventForm({ 
-          event: Object.keys(EVENTS).map(key => EVENTS[key]).find(i => i.name === getShowEvent().name),
-          showEvent: getShowEvent()
-        }).render(),
+        this.eventForm.render(),
         new RedButton({ text: 'Удалить', onClick: this.deleteEvent }).render()
       ]
     });
+  }
+  reRender() {
+    this.eventForm.replaceProps({ 
+      event: Object.keys(EVENTS).map(key => EVENTS[key]).find(i => i.name === getShowEvent().name),
+      showEvent: getShowEvent()
+    });
+    return this.rootElement;
   }
 }
 

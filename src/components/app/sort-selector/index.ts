@@ -5,8 +5,6 @@ import "./index.sss"
 import { setSort, getSort, subscribeOnSort } from "../../../store/sort";
 import { SORT_TYPE } from "../../../const";
 
-interface Props {
-}
 
 const createSortOption = (sortType: SORT_TYPE, text: string) => DOM.span('', text, {
   classList: ['sort-selector__option', getSort() === sortType && 'sort-selector__option--active'],
@@ -21,7 +19,7 @@ const options = [
   { sortType: SORT_TYPE.TYPE_DESC,  text: 'Тип по убыванию' },
 ]
 
-class SortSelector extends Component<Props, {}> {
+class SortSelector extends Component<{}, {}> {
   componentDidMount() {
     subscribeOnSort(() => this.reRender())
   }
