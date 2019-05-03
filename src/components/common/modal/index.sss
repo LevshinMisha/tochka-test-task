@@ -1,0 +1,25 @@
+.modal
+  display: none
+  align-items: center
+  justify-content: center
+  position: fixed
+  top: 0
+  bottom: 0
+  right: 0
+  left: 0
+  background: rgba(0, 0, 0, 0.5)
+
+.modal--open
+  display: flex
+
+.modal__content-wrap
+  background: white
+
+.modal__content-wrap--sticker
+  background: url('../../../assets/sticker.png')
+  background-size: cover
+
+@media(min-width: 720px)
+  @media(min-height: 600px)
+    .modal__content-wrap
+      padding: 15px

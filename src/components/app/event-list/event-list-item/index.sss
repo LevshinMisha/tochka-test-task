@@ -1,0 +1,56 @@
+.event-list-item
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  width: 360px
+  height: 360px
+  padding-left: 35px
+  padding-top: 15px
+  padding-right: 15px
+  padding-bottom: 25px
+  box-sizing: border-box
+  background: url('../../../../assets/sticker.png')
+  background-repeat: round
+  font-family: 'Caveat', cursive
+  cursor: pointer
+  user-select: none
+  font-size: 22px
+
+.event-list-item__title
+  text-align: center
+  padding: 10px
+  font-size: 25px
+
+.event-list-item__bottom-block
+  display: flex
+  justify-content: center
+  flex-direction: column
+  height: 100%
+
+.event-list-item__field-wrap
+  display: flex
+  align-items: center
+  justify-content: center
+  height: 40px
+
+.event-list-item__field-value--balance-true
+  color: green
+
+.event-list-item__field-value--balance-false
+  color: red
+
+.event-list-item__field-title,
+.event-list-item__field-value
+  width: 50%
+
+.event-list-item__field-value
+  overflow: hidden
+  text-overflow: ellipsis
+
+@media(min-width: 1200px)
+  .event-list-item
+    width: 400px
+    height: 400px
+    padding-left: 40px
+    padding-right: 20px
+    padding-bottom: 35px

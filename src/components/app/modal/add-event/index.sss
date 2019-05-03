@@ -1,0 +1,75 @@
+.add-event-modal
+  width: 360px
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  align-items: center
+  min-height: 60vh
+  margin: auto
+
+.add-event-modal .event-form
+  overflow-x: hidden
+
+.add-event-modal .event-form__title
+  display: none
+
+.add-event-modal .event-form__fields
+  overflow-y: scroll
+  max-height: calc(80vh - 41px - 53px - 20px)
+
+.add-event-modal .event-form__fields::-webkit-scrollbar
+  width: 0px
+
+.add-event-modal__content-wrap
+  width: 100%
+  
+.add-event-modal__event-tab
+  height: 40px
+  width: 180px
+  box-sizing: border-box
+  text-align: center
+  display: inline-block
+  cursor: pointer
+  padding: 10px 0
+
+
+.add-event-modal__event-tabs
+  border-bottom: 1px solid black
+  font-size: 15px
+
+.add-event-modal__event-tab--active
+  border-color: red
+  color: red
+  border-bottom: 3px solid red
+
+.add-event-modal__event-tab:hover
+  border-color: red
+  color: red
+
+.add-event-modal__button
+  margin: 10px
+
+@media(max-width: 720px)
+  .add-event-modal .event-form__input,
+  .add-event-modal .event-form__field-title
+    width: 50% !important
+
+@media(min-width: 720px)
+  .add-event-modal
+    width: 600px
+
+  .add-event-modal__event-tab
+    width: 200px
+    font-size: 16px
+
+@media(min-width: 1200px)
+  .add-event-modal
+    width: 800px
+
+@media(min-height: 600px)
+  .add-event-modal .event-form__title
+    display: inline-block
+  
+  .add-event-modal .event-form__fields
+    overflow-y: scroll
+    max-height: calc(80vh - 41px - 53px - 20px - 30px)

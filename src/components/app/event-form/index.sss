@@ -1,0 +1,56 @@
+.event-form
+  text-align: center
+  width: 100%
+
+.modal__content-wrap:scrollbar
+  display: none
+  
+.event-form__title
+  font-size: 30px
+  display: inline-block
+
+.event-form__field
+  display: flex
+  padding: 10px
+
+.event-form__field--hidden
+  display: none
+
+.event-form__field-title
+  width: 30%
+  text-align: initial
+
+.event-form__field > input:not([type='checkbox']),
+.event-form__field > textarea
+  width: 70%
+  outline: none
+
+.event-form__field > select
+  outline: none
+  
+.event-form__field > textarea
+  resize: none
+  height: 100px
+
+.event-form__input
+  text-align: left
+  overflow: hidden
+  text-overflow: ellipsis
+
+input.event-form__input,
+textarea.event-form__input
+  background: white
+
+.event-form__input
+  width: 60%
+
+.event-form__input--error
+  border-color: red
+
+span.event-form__input--textarea
+  font-size: 16px
+  height: 100px
+  
+@media(min-width: 720px)
+  .event-form__title
+    padding: 15px
