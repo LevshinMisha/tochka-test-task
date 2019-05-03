@@ -106,7 +106,7 @@ export const EVENTS: IEVENTS = {
       {
         type: EVENT_FIELD_TYPE_ENUM.DATE,
         title: 'Дата',
-        showInList: false,
+        showInList: true,
         editable: false
       },
     ]
@@ -119,8 +119,10 @@ export enum MODAL_TYPE {
 }
 
 export enum SORT_TYPE {
-  ASK,
-  DESC,
+  DATE_ASK,
+  DATE_DESC,
+  TYPE_ASK,
+  TYPE_DESC,
   NONE
 }
 

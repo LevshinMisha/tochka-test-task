@@ -7,7 +7,6 @@ import CheckboxGreenRed from "../../common/checkbox-green-red";
 import './index.sss';
 import { subscribeOnShowEvent, getShowEvent, setShowEvent } from "../../../store/showEvent";
 import { setEvent } from "../../../store/events";
-import Input from "../../common/input";
 
 interface Props {
   event: EVENT,

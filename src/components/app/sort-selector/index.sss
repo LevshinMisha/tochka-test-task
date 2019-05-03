@@ -1,0 +1,28 @@
+.sort-selector
+  width: 720px
+  position: fixed
+  bottom: 0
+  display: flex
+  justify-content: space-around
+  align-items: center
+  height: 30px
+  border-top: 1px solid black
+  background: white
+  font-size: 14px
+
+.sort-selector__option
+  cursor: pointer
+  height: 24px
+  box-sizing: border-box
+
+.sort-selector__option--active
+  border-bottom: 3px solid red
+  color: red
+
+.sort-selector__option:hover
+  color: red
+
+@media(min-width: 1200px)
+  .sort-selector
+    width: 1200px
+    font-size: 16px

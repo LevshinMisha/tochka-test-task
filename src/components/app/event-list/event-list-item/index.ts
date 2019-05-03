@@ -11,6 +11,9 @@ interface Props {
 }
 
 class EventListItem extends Component<Props, {}> {
+  getEvent() {
+    return this.props.event;
+  }
   renderValue(field: EVENT_FIELD, value: string) {
     switch (field.type) {
       case (EVENT_FIELD_TYPE_ENUM.BALANCE):
@@ -31,8 +34,9 @@ class EventListItem extends Component<Props, {}> {
   }
   render() {
     const event = Object.keys(EVENTS).map(key => EVENTS[key]).find(i => i.name === this.props.event.name);
-    return DOM.div('event-list-item', {
+    return DOM.update(this.rootElement, {
       id: this.props.event.id,
+      class: 'event-list-item',
       onClick: () => this.showEvent(this.props.event),
       childrens: [
         DOM.span('event-list-item__title', this.props.event.name),
