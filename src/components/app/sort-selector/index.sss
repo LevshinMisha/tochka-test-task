@@ -1,14 +1,15 @@
 .sort-selector
-  width: 720px
+  width: 360px
   position: fixed
   bottom: 0
   display: flex
   justify-content: space-around
   align-items: center
-  height: 30px
+  height: 100px
   border-top: 1px solid black
   background: white
   font-size: 14px
+  flex-wrap: wrap
 
 .sort-selector__option
   cursor: pointer
@@ -21,6 +22,11 @@
 
 .sort-selector__option:hover
   color: red
+
+@media(min-width: 720px)
+  .sort-selector
+    width: 720px
+    height: 30px
 
 @media(min-width: 1200px)
   .sort-selector

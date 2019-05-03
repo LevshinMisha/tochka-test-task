@@ -27,12 +27,12 @@ class ShowEventModalContent extends Component<Props, {}> {
     }
   }
   render() {
-    this.eventForm = new EventForm({ 
-      event: EVENTS.FINANCE,
-      showEvent: getShowEvent()
-    })
     if (!getShowEvent())
       return this.rootElement;
+    this.eventForm = new EventForm({ 
+      event: Object.keys(EVENTS).map(key => EVENTS[key]).find(i => i.name === getShowEvent().name) ,
+      showEvent: getShowEvent()
+    })
     return DOM.update(this.rootElement, {
       class: 'show-event-modal',
       childrens: [ 

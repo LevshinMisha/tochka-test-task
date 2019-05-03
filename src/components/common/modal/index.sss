@@ -14,12 +14,12 @@
 
 .modal__content-wrap
   background: white
-  //height: 80vh
 
 .modal__content-wrap--sticker
   background: url('../../../assets/sticker.png')
   background-size: cover
 
-@media(min-height: 600px)
-  .modal__content-wrap
-    padding: 15px
+@media(min-width: 720px)
+  @media(min-height: 600px)
+    .modal__content-wrap
+      padding: 15px

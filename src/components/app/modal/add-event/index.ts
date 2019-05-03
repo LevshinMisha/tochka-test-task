@@ -61,25 +61,25 @@ class AddEventModalContent extends Component<Props, State> {
   }
   
   render() {
-    this.eventTabs = DOM.div('add-event__event-tabs', {
+    this.eventTabs = DOM.div('add-event-modal__event-tabs', {
       childrens: Object.keys(EVENTS).map(key => EVENTS[key]).map(event => {
         return DOM.span('', event.name, {
-          classList: ['add-event__event-tab', this.state.event === event && 'add-event__event-tab--active'],
+          classList: ['add-event-modal__event-tab', this.state.event === event && 'add-event-modal__event-tab--active'],
           onClick: () => this.setState({ event })
         })
       })
     })
     this.eventForm = new EventForm({ event: this.state.event });
     return DOM.update(this.rootElement, {
-      class: 'add-event',
+      class: 'add-event-modal',
       childrens: [
-        DOM.div('add-event__content-wrap', {
+        DOM.div('add-event-modal__content-wrap', {
           childrens: [
             this.eventTabs,
             this.eventForm.render()
           ]
         }),
-        new GreenButton({ class: 'add-event__button', text: "Добавить", onClick: () => this.buttonOnClick()}).render()
+        new GreenButton({ class: 'add-event-modal__button', text: "Добавить", onClick: () => this.buttonOnClick()}).render()
       ]
     });
   }
@@ -87,8 +87,8 @@ class AddEventModalContent extends Component<Props, State> {
   reRender() {
     Object.keys(EVENTS).forEach((key, i) => {
       const tab = this.eventTabs.children.item(i);
-      if (this.state.event === EVENTS[key]) tab.classList.add('add-event__event-tab--active')
-      else tab.classList.remove('add-event__event-tab--active')
+      if (this.state.event === EVENTS[key]) tab.classList.add('add-event-modal__event-tab--active')
+      else tab.classList.remove('add-event-modal__event-tab--active')
     })
     this.eventForm.replaceProps({ event: this.state.event })
     return this.rootElement;

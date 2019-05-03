@@ -5,6 +5,6 @@ const key = 'showEvent';
 
 export const setShowEvent = (event: STORED_EVENT) => set(key, event);
 
-export const getShowEvent = () => get(key);
+export const getShowEvent = (): STORED_EVENT => get(key);
 
 export const subscribeOnShowEvent = (func: Function) => subscribe(key, func);
