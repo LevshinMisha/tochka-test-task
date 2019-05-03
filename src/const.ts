@@ -110,6 +110,43 @@ export const EVENTS: IEVENTS = {
         editable: false
       },
     ]
+  },
+  REQUEST: {
+    name: 'Запрос перевода',
+    fields: [
+      {
+        type: EVENT_FIELD_TYPE_ENUM.TEXT,
+        title: 'Имя',
+        showInList: true,
+        editable: false
+      },
+      {
+        type: EVENT_FIELD_TYPE_ENUM.TEXT,
+        title: 'Счет',
+        showInList: true,
+        editable: false,
+        mask: {
+          regexp: /^51401702[0-9]{8}$/,
+          errorMessage: 'Счет должен состоять из 16 цифр и принадлежать нашему банку!'
+        }
+      },
+      {
+        type: EVENT_FIELD_TYPE_ENUM.NUMBER,
+        title: 'Сумма запроса',
+        showInList: true,
+        editable: false,
+        mask: {
+          regexp: /[1-9][0-9]*/,
+          errorMessage: 'Сумма должна быть положительная'
+        }
+      },
+      {
+        type: EVENT_FIELD_TYPE_ENUM.DATE,
+        title: 'Дата',
+        showInList: true,
+        editable: false
+      }
+    ]
   }
 }
 
