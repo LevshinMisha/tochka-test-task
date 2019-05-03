@@ -12,7 +12,7 @@ export interface EVENT_FIELD {
   type: EVENT_FIELD_TYPE_ENUM,
   title: string
   showInList: boolean
-  default?: string
+  hideOnCreate?: boolean
   mask?: {
     regexp: RegExp,
     errorMessage: string
@@ -91,7 +91,7 @@ export const EVENTS: IEVENTS = {
         type: EVENT_FIELD_TYPE_ENUM.READ,
         title: 'Ознакомлен',
         showInList: false,
-        default: 'false',
+        hideOnCreate: true,
       },
       {
         type: EVENT_FIELD_TYPE_ENUM.DATE,
