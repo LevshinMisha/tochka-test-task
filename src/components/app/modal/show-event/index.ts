@@ -27,10 +27,8 @@ class ShowEventModalContent extends Component<Props, {}> {
     }
   }
   render() {
-    if (!getShowEvent())
-      return this.rootElement;
     this.eventForm = new EventForm({ 
-      event: Object.keys(EVENTS).map(key => EVENTS[key]).find(i => i.name === getShowEvent().name) ,
+      event: getShowEvent() ? Object.keys(EVENTS).map(key => EVENTS[key]).find(i => i.name === getShowEvent().name) : EVENTS.FINANCE,
       showEvent: getShowEvent()
     })
     return DOM.update(this.rootElement, {
